@@ -102,6 +102,10 @@ export class DashBoardComponent implements OnInit, OnDestroy {
    * @memberof DashBoardComponent
    */
   ngOnInit() {
+    const languages = ["eng","ara","fra"];
+    localStorage.setItem("dataCaptureLanguages", JSON.stringify(languages));
+    const languagesLabels = ["English","عربى","français"];
+    localStorage.setItem("dataCaptureLanguagesLabels", JSON.stringify(languagesLabels));
     this.loginId = localStorage.getItem("loginId");
     this.initUsers();
     const subs = this.autoLogout.currentMessageAutoLogout.subscribe(
