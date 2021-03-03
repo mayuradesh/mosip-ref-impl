@@ -380,6 +380,7 @@ export class DemographicComponent
             this.uiFields.push(obj);
           }
         });
+        this.alignmentGroups.sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
         console.log(this.alignmentGroups);
         this.dynamicFields = this.uiFields.filter(
           (fields) =>
@@ -412,11 +413,21 @@ export class DemographicComponent
    */
   async initForm() {
     this.uiFields.forEach((control, index) => {
-      this.dataCaptureLanguages.forEach((language, i) => {
-        const controlId = control.id + "_" + language;
-        this.userForm.addControl(controlId, new FormControl(""));
-        this.addValidators(control, controlId);
-      });  
+      //if (control.controlType !== "dropdown" && control.controlType !== "button" && control.controlType !== "checkbox") {
+        this.dataCaptureLanguages.forEach((language, i) => {
+          const controlId = control.id + "_" + language;
+          this.userForm.addControl(controlId, new FormControl(""));
+          this.addValidators(control, controlId);
+        });
+      // } else {
+      //   if (control.controlType === "checkbox") {
+      
+      //   const controlId = control.id;
+      //   this.userForm.addControl(controlId, new FormControl(""));
+      //   this.addValidators(control, controlId);
+      //   }
+      // }  
+      console.log(control);  
       // if (this.primaryLang !== this.secondaryLang) {
       //   this.transUserForm.addControl(control.id, new FormControl(""));
       // }
