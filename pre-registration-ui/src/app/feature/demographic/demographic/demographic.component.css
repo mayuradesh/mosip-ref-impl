@@ -87,6 +87,7 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
+  background-color: white;
   font-family: "Roboto", sans-serif;
 }
 
@@ -405,41 +406,20 @@ mat-icon {
 }
 .rowContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
+  flex-wrap: wrap;
 }
-.fieldContainer1 {
-  border: 1px solid #fd518c;
+.fieldContainer {
+  flex:1;
+  width: 400px;
   margin: 10px;
+  border: 1px solid #fd518c;
   position:relative;
   min-width: 95%;
-  width: 100%;
-}
-.fieldContainer2 {
-  border: 1px solid #fd518c;
-  margin: 10px;
-  position:relative;
-  min-width: 95%;
-  width: 50%;
-}
-.fieldContainer3 {
-  border: 1px solid #fd518c;
-  margin: 10px;
-  position:relative;
-  min-width: 95%;
-  width: 30%;
-}
-.fieldContainer4 {
-  border: 1px solid #fd518c;
-  margin: 10px;
-  position:relative;
-  min-width: 95%;
-  width: 22%;
 }
 .fieldHeader {
+  width: 400px;
   color: white;
-  height: 40px;
+  min-height: 40px;
   padding-left: 10px;
   padding-top: 10px;
   background-color: #fd518c;
