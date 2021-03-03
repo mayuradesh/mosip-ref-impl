@@ -11,7 +11,7 @@
           <span *ngFor="let alignmentGroup of alignmentGroups">
             <div class="rowContainer">
               <span *ngFor="let field of filterRows(uiFields, alignmentGroup);index as rowIndex">
-                <div [ngClass]="'fieldContainer' + filterRows(uiFields, alignmentGroup).length">
+                <div [ngClass]="'fieldContainer'">
                   <div class="fieldHeader">
                     <span *ngFor="let dataCaptureLanguage of dataCaptureLanguages;index as i">
                       <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>{{
