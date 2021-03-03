@@ -5,14 +5,23 @@
   "response": {
     "idSchema": {
       "locationHierarchy": [
-        ["presentProvince", "presentCity", "presentBarangay", "presentZipcode"],
+        [
+          "presentProvince",
+          "presentCity",
+          "presentBarangay",
+          "presentZipcode"
+        ],
         [
           "permanentProvince",
           "permanentCity",
           "permanentBarangay",
           "permanentZipcode"
         ],
-        ["pobCountry", "pobprovince", "pobcity"]
+        [
+          "pobCountry",
+          "pobprovince",
+          "pobcity"
+        ]
       ],
       "identity": [
         {
@@ -25,11 +34,15 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
-		  "alignmentGroup": "row1",
+          "alignmentGroup": "row1",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": true
         },
@@ -44,10 +57,14 @@
           "controlType": "textbox",
           "inputRequired": true,
           "fieldType": "default",
-		  "alignmentGroup": "row1",
+          "alignmentGroup": "row1",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": true
         },
@@ -62,10 +79,14 @@
           "controlType": "textbox",
           "inputRequired": true,
           "fieldType": "default",
-		  "alignmentGroup": "row1",
+          "alignmentGroup": "row1",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": true
         },
@@ -79,11 +100,15 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
-		  "alignmentGroup": "row2",
+          "alignmentGroup": "row3",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": true
         },
@@ -97,7 +122,7 @@
           },
           "controlType": "date",
           "inputRequired": true,
-		  "alignmentGroup": "row3",
+          "alignmentGroup": "row3",
           "fieldType": "default",
           "type": "string",
           "validators": [],
@@ -106,9 +131,13 @@
         {
           "id": "gender",
           "description": "Enter Gender",
-          "labelName": { "eng": "Gender", "ara": "جنس", "fra": "Le genre" },
+          "labelName": {
+            "eng": "Gender",
+            "ara": "جنس",
+            "fra": "Le genre"
+          },
           "controlType": "dropdown",
-		  "alignmentGroup": "row2",
+          "alignmentGroup": "row3",
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
@@ -125,7 +154,7 @@
           },
           "controlType": "dropdown",
           "inputRequired": true,
-		  "alignmentGroup": "row2",
+          "alignmentGroup": "row2",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [],
@@ -141,7 +170,7 @@
           },
           "controlType": "dropdown",
           "inputRequired": true,
-		  "alignmentGroup": "row4",
+          "alignmentGroup": "row2",
           "fieldType": "dynamic",
           "type": "simpleType",
           "validators": [],
@@ -156,7 +185,7 @@
             "fra": "Marital status"
           },
           "controlType": "dropdown",
-		  "alignmentGroup": "row4",
+          "alignmentGroup": "row2",
           "inputRequired": true,
           "fieldType": "dynamic",
           "type": "simpleType",
@@ -172,12 +201,16 @@
             "fra": "Adresse 1"
           },
           "controlType": "textbox",
-		  "alignmentGroup": "row5",
+          "alignmentGroup": "row4",
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": true
         },
@@ -191,11 +224,15 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
-		  "alignmentGroup": "row5",
+          "alignmentGroup": "row4",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -209,11 +246,15 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
-		  "alignmentGroup": "row5",
+          "alignmentGroup": "row4",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -229,9 +270,13 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
-		  "alignmentGroup": "row5",
+          "alignmentGroup": "row5",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -247,9 +292,13 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
-		  "alignmentGroup": "row6",
+          "alignmentGroup": "row5",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -266,9 +315,13 @@
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
-		  "alignmentGroup": "row6",
+          "alignmentGroup": "row5",
           "required": false
         },
         {
@@ -284,9 +337,13 @@
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
-		  "alignmentGroup": "row6",
+          "alignmentGroup": "row6",
           "required": false
         },
         {
@@ -301,6 +358,7 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
+          "alignmentGroup": "row6",
           "validators": [
             {
               "type": "regex",
@@ -309,6 +367,34 @@
             }
           ],
           "required": false
+        },
+        {
+          "id": "addressCopy",
+          "description": "addressCopy",
+          "labelName": {
+            "eng": "Copy Permanent Address To Present Address?",
+            "ara": "نسخ العنوان الدائم إلى العنوان الحالي؟",
+            "fra": "Copier l'adresse permanente dans l'adresse actuelle?"
+          },
+          "controlType": "checkbox",
+          "inputRequired": true,
+          "fieldType": "default",
+          "type": "string",
+          "alignmentGroup": "row7",
+          "validators": [],
+          "required": true,
+          "containerStyle": {
+            "width": "100%",
+            "border": "1px solid rgb(11, 106, 130)",
+            "min-width": "100%"
+          },
+          "headerStyle": {
+            "width": "100%",
+            "border-bottom": "1px solid rgb(11, 106, 130)",
+            "color": "white",
+            "background-color": "rgb(11, 106, 130)",
+            "min-width": "100%"
+          }
         },
         {
           "id": "presentAddressLine1",
@@ -323,8 +409,13 @@
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
+          "alignmentGroup": "row8",
           "required": false
         },
         {
@@ -339,8 +430,13 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
+          "alignmentGroup": "row8",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -354,10 +450,15 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
+          "alignmentGroup": "row8",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -373,8 +474,13 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
+          "alignmentGroup": "row9",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -390,8 +496,13 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
+          "alignmentGroup": "row9",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -405,10 +516,15 @@
           },
           "controlType": "dropdown",
           "inputRequired": true,
+          "alignmentGroup": "row9",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -423,9 +539,14 @@
           "controlType": "dropdown",
           "inputRequired": true,
           "fieldType": "default",
+          "alignmentGroup": "row10",
           "type": "simpleType",
           "validators": [
-            { "type": "regex", "validator": "^(?=.{0,50}$).*", "arguments": [] }
+            {
+              "type": "regex",
+              "validator": "^(?=.{0,50}$).*",
+              "arguments": []
+            }
           ],
           "required": false
         },
@@ -439,6 +560,7 @@
           },
           "controlType": "dropdown",
           "inputRequired": true,
+          "alignmentGroup": "row10",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
@@ -462,6 +584,7 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "string",
+          "alignmentGroup": "row11",
           "validators": [
             {
               "type": "regex",
@@ -479,6 +602,7 @@
             "ara": "البريد الإلكتروني",
             "fra": "Email"
           },
+          "alignmentGroup": "row11",
           "controlType": "textbox",
           "inputRequired": true,
           "fieldType": "default",
@@ -495,7 +619,12 @@
         {
           "id": "proofOfAddress",
           "description": "proofOfAddress",
-          "labelName": [{ "value": "Address Proof", "language": "eng" }],
+          "labelName": [
+            {
+              "value": "Address Proof",
+              "language": "eng"
+            }
+          ],
           "controlType": "fileupload",
           "inputRequired": true,
           "validators": [],
@@ -504,7 +633,12 @@
         {
           "id": "proofOfIdentity",
           "description": "proofOfIdentity",
-          "labelName": [{ "value": "Identity Proof", "language": "eng" }],
+          "labelName": [
+            {
+              "value": "Identity Proof",
+              "language": "eng"
+            }
+          ],
           "controlType": "fileupload",
           "inputRequired": true,
           "validators": [],
@@ -513,7 +647,12 @@
         {
           "id": "proofOfRelationship",
           "description": "proofOfRelationship",
-          "labelName": [{ "value": "Relationship Proof", "language": "eng" }],
+          "labelName": [
+            {
+              "value": "Relationship Proof",
+              "language": "eng"
+            }
+          ],
           "controlType": "fileupload",
           "inputRequired": true,
           "validators": [],
@@ -522,7 +661,12 @@
         {
           "id": "proofOfDateOfBirth",
           "description": "proofOfDateOfBirth",
-          "labelName": [{ "value": "DOB Proof", "language": "eng" }],
+          "labelName": [
+            {
+              "value": "DOB Proof",
+              "language": "eng"
+            }
+          ],
           "controlType": "fileupload",
           "inputRequired": true,
           "validators": [],
@@ -531,7 +675,12 @@
         {
           "id": "proofOfException",
           "description": "proofOfException",
-          "labelName": [{ "value": "Exception Proof", "language": "eng" }],
+          "labelName": [
+            {
+              "value": "Exception Proof",
+              "language": "eng"
+            }
+          ],
           "controlType": "fileupload",
           "inputRequired": true,
           "validators": [],
@@ -540,7 +689,12 @@
         {
           "id": "proofOfException-1",
           "description": "proofOfException",
-          "labelName": [{ "value": "Exception Proof 2", "language": "eng" }],
+          "labelName": [
+            {
+              "value": "Exception Proof 2",
+              "language": "eng"
+            }
+          ],
           "controlType": "fileupload",
           "inputRequired": true,
           "validators": [],
