@@ -8,11 +8,13 @@
       <hr />
       <div [dir]="textDir" class="user_container_single_form" *ngIf="primaryuserForm">
         <form [formGroup]="userForm" class="user__form">
+          <!-- Create as rows as many as alignmentGroups in UI specs -->
           <span *ngFor="let alignmentGroup of alignmentGroups">
             <div class="rowContainer">
               <span *ngFor="let field of filterRows(uiFields, alignmentGroup)">
                 <div class="fieldContainer" [ngStyle]="field.containerStyle">
                   <div class="fieldHeader" [ngStyle]="field.headerStyle">
+                    <!-- Create container header with labels in all chosen dataCaptureLanguages -->
                     <span *ngFor="let dataCaptureLanguage of dataCaptureLanguages;index as i">
                       <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>{{
                         field.labelName[dataCaptureLanguage] }}</mat-label>
@@ -22,9 +24,12 @@
                     <span *ngIf="field.required" class="required-annotation">*</span>
                   </div>
                   <div class="fieldContent">
+                    <!-- Create form fields to capture data in all chosen dataCaptureLanguages -->
                     <span *ngFor="let dataCaptureLanguage of dataCaptureLanguages;index as i">
+                      <!-- Add TextBox for each dataCaptureLanguage -->
                       <ng-container *ngIf="field.controlType === 'textbox' && field.isVisible == true">
                         <mat-form-field [ngClass]="'text-field'">
+                          <!-- Again Label is required at each TextBox level too -->
                           <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>
                             {{field.labelName[dataCaptureLanguage]}}
                           </mat-label>
@@ -34,9 +39,10 @@
                             (input)="copyToSecondaryFormNonDropDown(dataCaptureLanguage, $event)" #keyboardRef #input />
                         </mat-form-field>
                       </ng-container>
+                      <!-- Add CheckBox only once, but show Labels in all dataCaptureLanguages -->
                       <ng-container *ngIf="field.controlType === 'checkbox' && field.isVisible == true">
                         <span *ngIf="i == 0">
-                          <mat-checkbox class="form_checkBox" [formControlName]="field.id + '_' + dataCaptureLanguage"
+                          <mat-checkbox class="form_checkBox" [formControlName]="field.id"
                             (change)="showHideFormFields();copyToSecondaryFormNonDropDown(field.id, $event)">
                             <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}' class="form_checkBox">
                               {{field.labelName[dataCaptureLanguage]}}
@@ -48,23 +54,62 @@
                             {{field.labelName[dataCaptureLanguage]}}
                           </mat-label>
                         </span>
-                        <span *ngIf="field.required" class="required-annotation">*</span>
                       </ng-container>
-                      <mat-error class="primary-errors" *ngIf="
-                        primaryuserForm &&
-                        userForm.get(field.id + '_' + dataCaptureLanguage).hasError('required') &&
-                        userForm.get(field.id + '_' + dataCaptureLanguage).touched">
-                        {{ field.labelName[dataCaptureLanguage] }}
-                        {{ validationMessage.requiredMessage[dataCaptureLanguage] }}
-                      </mat-error>
-                      <mat-error class="primary-errors" *ngIf="
-                        primaryuserForm &&
-                        userForm.get(field.id + '_' + dataCaptureLanguage).touched &&
-                        userForm.get(field.id + '_' + dataCaptureLanguage).dirty &&
-                        userForm.get(field.id) + '_' + dataCaptureLanguage.hasError('pattern')">
-                        {{ validationMessage.InvalidStringMessage[dataCaptureLanguage] }}
-                        {{ field.labelName[dataCaptureLanguage] }}
-                      </mat-error>
+                      <!-- Add Button Options in  only one language -->
+                      <ng-container *ngIf="field.controlType === 'button' && field.isVisible == true">        
+                        <span *ngIf="i == 0">
+                          <mat-button-toggle-group class="btn_grp" [formControlName]="field.id" (change)="showHideFormFields();
+                              copyDataToSecondaryForm()">
+                            <span *ngFor="let dropdown of filterSelectOptsOnLang(field.id, dataCaptureLanguage)">
+                              <mat-button-toggle 
+                                class="btn_grp mat-button-toggle" 
+                                value="{{dropdown.valueCode}}"
+                                title="{{getSelectOptsTitleInOtherLang(field.id, dropdown.valueCode, dataCaptureLanguage)}}">
+                                {{dropdown.valueName}}
+                              </mat-button-toggle>
+                            </span>
+                          </mat-button-toggle-group>
+                          <span>{{getSelectOptsLabelInAllLang(field.id, userForm.get(field.id).value)}}</span>
+                        </span>
+                      </ng-container>
+                      <!-- Error handling for various types -->
+                      <span *ngIf="field.controlType === 'textbox'">
+                        <mat-error class="primary-errors" *ngIf="
+                          primaryuserForm &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage).hasError('required') &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage).touched">
+                          {{ field.labelName[dataCaptureLanguage] }}
+                          {{ validationMessage.requiredMessage[dataCaptureLanguage] }}
+                        </mat-error>
+                        <mat-error class="primary-errors" *ngIf="
+                          primaryuserForm &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage).touched &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage).dirty &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage).hasError('pattern')">
+                          {{ validationMessage.InvalidStringMessage[dataCaptureLanguage] }}
+                          {{ field.labelName[dataCaptureLanguage] }}
+                        </mat-error>
+                      </span>
+                      <span
+                        *ngIf="field.controlType === 'checkbox' || field.controlType === 'button' || field.controlType === 'dropdown'">
+                        <span *ngIf="i == 0">
+                          <mat-error class="primary-errors" *ngIf="
+                          primaryuserForm &&
+                          userForm.get(field.id).hasError('required') &&
+                          userForm.get(field.id).touched">
+                            {{ field.labelName[dataCaptureLanguage] }}
+                            {{ validationMessage.requiredMessage[dataCaptureLanguage] }}
+                          </mat-error>
+                          <mat-error class="primary-errors" *ngIf="
+                          primaryuserForm &&
+                          userForm.get(field.id).touched &&
+                          userForm.get(field.id).dirty &&
+                          userForm.get(field.id).hasError('pattern')">
+                            {{ validationMessage.InvalidStringMessage[dataCaptureLanguage] }}
+                            {{ field.labelName[dataCaptureLanguage] }}
+                          </mat-error>
+                        </span>
+                      </span>
                     </span>
                   </div>
                 </div>

@@ -388,15 +388,15 @@ mat-icon {
   font-weight: inherit;
   font-size: 0.7rem;
   margin-right: 10px;
-  color: black;
+  height: fit-content;
+  color: #fd518c;
+  border: 1px solid #fd518c;
   border-radius: 0%;
-  box-shadow: 1px 1px 1px 1px rgba(107, 106, 106, 0.068);
 }
 
 .btn_grp .mat-button-toggle-checked {
-  background-color: white;
-  font-weight: bolder;
-  color: #fd518c;
+  background-color: #fd518c;
+  color: white;
 }
 
 .form_checkBox {
@@ -411,8 +411,8 @@ mat-icon {
   flex:1;
   width: 400px;
   margin: 10px;
-  border: 1px solid #fd518c;
   position:relative;
+  box-shadow: 1px 1px 1px grey;
   min-width: 95%;
 }
 .fieldHeader {
@@ -420,7 +420,7 @@ mat-icon {
   color: white;
   min-height: 40px;
   padding: 10px;
-  background-color: #fd518c;
+  background-color:rgb(11, 106, 130) ;
 }
 .fieldContent {
   padding: 10px;

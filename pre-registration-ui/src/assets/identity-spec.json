@@ -136,7 +136,7 @@
             "ara": "جنس",
             "fra": "Le genre"
           },
-          "controlType": "dropdown",
+          "controlType": "button",
           "alignmentGroup": "row3",
           "inputRequired": true,
           "fieldType": "default",
@@ -385,14 +385,13 @@
           "required": true,
           "containerStyle": {
             "width": "100%",
-            "border": "1px solid rgb(11, 106, 130)",
             "min-width": "100%"
           },
           "headerStyle": {
             "width": "100%",
-            "border-bottom": "1px solid rgb(11, 106, 130)",
+            "border-bottom": "1px solid #fd518c",
             "color": "white",
-            "background-color": "rgb(11, 106, 130)",
+            "background-color": "#fd518c",
             "min-width": "100%"
           }
         },
