@@ -212,6 +212,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": true
         },
         {
@@ -234,6 +242,15 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -246,7 +263,7 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
-          "alignmentGroup": "row4",
+          "alignmentGroup": "row5",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
@@ -256,6 +273,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -278,6 +303,15 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -292,7 +326,7 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
-          "alignmentGroup": "row5",
+          "alignmentGroup": "row6",
           "validators": [
             {
               "type": "regex",
@@ -300,6 +334,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -321,7 +363,15 @@
               "arguments": []
             }
           ],
-          "alignmentGroup": "row5",
+          "alignmentGroup": "row6",
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -344,6 +394,14 @@
             }
           ],
           "alignmentGroup": "row6",
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -366,6 +424,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -415,6 +481,14 @@
             }
           ],
           "alignmentGroup": "row8",
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -437,6 +511,15 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -449,7 +532,7 @@
           },
           "controlType": "textbox",
           "inputRequired": true,
-          "alignmentGroup": "row8",
+          "alignmentGroup": "row9",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
@@ -459,6 +542,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -481,6 +572,15 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "550px",
+            "min-width": "100%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "550px",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -495,7 +595,7 @@
           "inputRequired": true,
           "fieldType": "default",
           "type": "simpleType",
-          "alignmentGroup": "row9",
+          "alignmentGroup": "row10",
           "validators": [
             {
               "type": "regex",
@@ -503,6 +603,13 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "50%"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -515,7 +622,7 @@
           },
           "controlType": "dropdown",
           "inputRequired": true,
-          "alignmentGroup": "row9",
+          "alignmentGroup": "row10",
           "fieldType": "default",
           "type": "simpleType",
           "validators": [
@@ -525,6 +632,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -547,6 +662,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
@@ -569,6 +692,14 @@
               "arguments": []
             }
           ],
+          "containerStyle": {
+            "width": "50%",
+            "margin-left": "20px"
+          },
+          "headerStyle": {
+            "width": "50%",
+            "min-width": "100%"
+          },
           "required": false
         },
         {
