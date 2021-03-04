@@ -56,24 +56,108 @@
                         </span>
                       </ng-container>
                       <!-- Add Button Options in  only one language -->
-                      <ng-container *ngIf="field.controlType === 'button' && field.isVisible == true">        
+                      <ng-container *ngIf="field.controlType === 'button' && field.isVisible == true">
                         <span *ngIf="i == 0">
                           <mat-button-toggle-group class="btn_grp" [formControlName]="field.id" (change)="showHideFormFields();
                               copyDataToSecondaryForm()">
-                            <span *ngFor="let dropdown of filterSelectOptsOnLang(field.id, dataCaptureLanguage)">
-                              <mat-button-toggle 
-                                class="btn_grp mat-button-toggle" 
-                                value="{{dropdown.valueCode}}"
-                                title="{{getSelectOptsTitleInOtherLang(field.id, dropdown.valueCode, dataCaptureLanguage)}}">
-                                {{dropdown.valueName}}
-                              </mat-button-toggle>
-                            </span>
+                            <ng-container *ngFor="let dropdown of selectOptionsDataArray[field.id]">
+                              <span *ngIf="dropdown.languageCode === dataCaptureLanguage">
+                                <mat-button-toggle class="btn_grp mat-button-toggle" value="{{dropdown.valueCode}}"
+                                  title="{{getTitleForOptionInOtherLangs(field.id, dropdown.valueCode, dataCaptureLanguage)}}">
+                                  {{dropdown.valueName}}
+                                </mat-button-toggle>
+                              </span>
+                            </ng-container>
                           </mat-button-toggle-group>
-                          <span>{{getSelectOptsLabelInAllLang(field.id, userForm.get(field.id).value)}}</span>
+                          <br>
+                          <span class="selectedOption"
+                            *ngFor="let labelData of getLabelsInAllLangsForSelectedOpt(field.id,userForm.get(field.id).value)">
+                            {{labelData.label}}<p></p>
+                          </span>
+                        </span>
+                      </ng-container>
+                      <!-- Add Dropdown Options in  only one language -->
+                      <ng-container *ngIf="field.controlType === 'dropdown' && field.isVisible == true">
+                        <span *ngIf="i == 0">
+                          <mat-form-field [ngClass]="'dropdown-field'">
+                            <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>
+                              {{field.labelName[dataCaptureLanguage]}}
+                            </mat-label>
+                            <mat-select formControlName="{{ field.id }}" (focus)="dropdownApiCall(field)"
+                              (selectionChange)="
+                                copyDataToSecondaryForm(
+                                field.id,
+                                userForm.get(field.id).value)" #dropdown>
+                              <mat-option *ngIf="!(
+                                selectOptionsDataArray[field.id]?.length > 0 &&
+                                selectOptionsDataArray[field.id] !== null)">
+                                <mat-spinner [diameter]="20" style="margin-left: 43%"></mat-spinner>
+                              </mat-option>
+                              <ng-container *ngFor="let dropdown of selectOptionsDataArray[field.id]">
+                                <mat-option *ngIf="dropdown.languageCode === dataCaptureLanguage"
+                                  [value]="dropdown.valueCode"
+                                  (click)="resetLocationFields(field.id);showHideFormFields();"
+                                  title="{{getTitleForOptionInOtherLangs(field.id, dropdown.valueCode, dataCaptureLanguage)}}">
+                                  {{ dropdown.valueName }}
+                                </mat-option>
+                              </ng-container>
+                            </mat-select>
+                          </mat-form-field>
+                          <br>
+                          <span class="selectedOption"
+                            *ngFor="let labelData of getLabelsInAllLangsForSelectedOpt(field.id,userForm.get(field.id).value)">
+                            {{labelData.label}}<p></p>
+                          </span>
+                        </span>
+                      </ng-container>
+                      <!-- ADd Date fields-->
+                      <ng-container *ngIf="field.controlType === 'date' && field.isVisible == true">
+                        <span *ngIf="i == 0">
+                          <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>
+                            {{field.labelName[dataCaptureLanguage]}}
+                          </mat-label>
+                          <div class="user__age-or-date">
+                            <div class="user__date">
+                              <mat-form-field>
+                                <input matInput placeholder="{{ 'demographic.date_dd' | translate }}" #dd [value]="date"
+                                  (change)="showHideFormFields()" (focusout)="onDOBChange()" />
+                              </mat-form-field>
+                              <mat-form-field>
+                                <input matInput placeholder="{{ 'demographic.date_mm' | translate }}" [value]="month"
+                                  #mm (focusout)="onDOBChange()" (change)="showHideFormFields()" />
+                              </mat-form-field>
+                              <mat-form-field>
+                                <input matInput placeholder="{{ 'demographic.date_yyyy' | translate }}" [value]="year"
+                                  #yyyy (focusout)="onDOBChange()" (change)="showHideFormFields()" />
+                              </mat-form-field>
+                            </div>
+                            <div class="user__pref">
+                              {{ "demographic.text_or" | translate }}
+                            </div>
+                            <div class="user__age">
+                              <mat-form-field>
+                                <input matInput tabindex="-1" placeholder="{{ 'demographic.label_age' | translate }}"
+                                  [value]="currentAge" #age (change)="showHideFormFields()"
+                                  (focusout)="onAgeChange()" />
+                              </mat-form-field>
+                              <div class="user__age--years">
+                                {{ "demographic.text_years" | translate }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mat-error ng-star-inserted user__dob__error" *ngIf="
+                          primaryuserForm &&    
+                          (userForm.get(field.id).touched &&
+                                userForm.get(field.id).hasError('incorrect')) ||
+                              (userForm.get(field.id).touched &&
+                                !userForm.get(field.id).valid)
+                            ">
+                            {{ "demographic.validation.DOB_validation" | translate }}
+                          </div>
                         </span>
                       </ng-container>
                       <!-- Error handling for various types -->
-                      <span *ngIf="field.controlType === 'textbox'">
+                      <span *ngIf="field.controlType === 'textbox' && field.controlType !== 'date'">
                         <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).hasError('required') &&
@@ -91,7 +175,7 @@
                         </mat-error>
                       </span>
                       <span
-                        *ngIf="field.controlType === 'checkbox' || field.controlType === 'button' || field.controlType === 'dropdown'">
+                        *ngIf="field.controlType === 'checkbox' || field.controlType === 'button' || field.controlType === 'dropdown'|| field.controlType === 'date'">
                         <span *ngIf="i == 0">
                           <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
