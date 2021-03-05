@@ -210,7 +210,6 @@ export class DemographicComponent
    * @memberof DemographicComponent
    */
   async ngOnInit() {
-    console.log(this.ltrLangs);
     this.initialization();
     await this.getIdentityJsonFormat();
     this.config = this.configService.getConfig();
@@ -382,12 +381,10 @@ export class DemographicComponent
           this.setDefaultAlignmentGroups();        
         }
         this.alignmentGroups.sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
-        console.log(this.alignmentGroups);
         this.dynamicFields = this.uiFields.filter(
           (fields) =>
             ((fields.controlType === "dropdown" || fields.controlType === "button" ) && fields.fieldType === "dynamic")
         );
-        console.log(this.dynamicFields);
         this.setDropDownArrays();
         this.setLocations();
         this.setGender();
@@ -443,7 +440,6 @@ export class DemographicComponent
           this.addValidators(control, controlId);
         }
       });
-      console.log(control);
       // if (this.firstDataCaptureLang !== this.secondaryLang) {
       //   this.transUserForm.addControl(control.id, new FormControl(""));
       // }
@@ -822,7 +818,8 @@ export class DemographicComponent
     await this.getGenderDetails();
     await this.populateSelectOptsDataArr(
       appConstants.controlTypeGender,
-      this.genders
+      this.genders,
+      null
     );
     // if (this.firstDataCaptureLang !== this.secondaryLang) {
     //   await this.populateSelectOptsDataArr(
@@ -834,47 +831,44 @@ export class DemographicComponent
   }
 
   private async setDynamicFieldValues() {
-    await this.getDynamicFieldValues();
+    await this.getDynamicFieldValues(null);
     // if (this.firstDataCaptureLang !== this.secondaryLang) {
     //   await this.getDynamicFieldValues(this.secondaryLang);
     // }
   }
 
-  getDynamicFieldValues() {
+  getDynamicFieldValues(pageNo) {
+    let pageNumber;
+    if (pageNo == null) {
+      pageNumber = 0;
+    } else {
+      pageNumber = pageNo;
+    }
     return new Promise((resolve) => {
       this.dataStorageService
-        .getDynamicFieldsandValuesForAllLang()
-        .subscribe((response) => {
-          console.log("getDynamicFieldsandValuesForAllLang");
-          let dynamicField = response[appConstants.RESPONSE]["data"];
-          console.log(dynamicField);
-          this.dynamicFields.forEach((field) => {
-            //console.log(field);
-            dynamicField.forEach((res) => {
-              //console.log(res);
-              if (field.id === res.name) {
-                console.log(res["fieldVal"]);
-                this.populateSelectOptsDataArr(
-                  res.name,
-                  res["fieldVal"]
-                );
-                //console.log(this.selectOptionsDataArray);
-              }
-              // if (this.firstDataCaptureLang !== this.secondaryLang) {
-              //   if (
-              //     field.id === res.name &&
-              //     res.langCode === this.secondaryLang
-              //   ) {
-              //     this.populateSelectOptsDataArr(
-              //       this.secondaryLang,
-              //       res.name,
-              //       res["fieldVal"]
-              //     );
-              //   }
-              // }
-            });
-          });
+      .getDynamicFieldsandValuesForAllLang(pageNumber)
+      .subscribe((response) => {
+        let dynamicField = response[appConstants.RESPONSE]["data"];
+        this.dynamicFields.forEach((field) => {
+          dynamicField.forEach((res) => {
+            if (field.id === res.name) {
+              this.populateSelectOptsDataArr(
+                res.name,
+                res["fieldVal"],
+                res["langCode"]
+              );
+            }
+          });  
         });
+        let totalPages = response[appConstants.RESPONSE]["totalPages"];
+        if (totalPages) {
+          totalPages = Number(totalPages);
+        }
+        pageNumber = pageNumber + 1;
+        if (totalPages > pageNumber) {
+          this.getDynamicFieldValues(pageNumber);
+        }  
+      });  
       resolve(true);
     });
   }
@@ -889,7 +883,8 @@ export class DemographicComponent
     await this.getResidentDetails();
     await this.populateSelectOptsDataArr(
       appConstants.controlTypeResidenceStatus,
-      this.residenceStatus
+      this.residenceStatus,
+      null
     );
     // if (this.firstDataCaptureLang !== this.secondaryLang) {
     //   await this.populateSelectOptsDataArr(
@@ -1032,7 +1027,6 @@ export class DemographicComponent
                 response[appConstants.RESPONSE][
                   appConstants.DEMOGRAPHIC_RESPONSE_KEYS.genderTypes
                 ];
-                console.log(this.genders)
               resolve(true);
             } else {
               this.onError(this.errorlabels.error, "");
@@ -1129,7 +1123,6 @@ export class DemographicComponent
         this.date = this.defaultDay;
         this.month = this.defaultMonth;
         this.year = calulatedYear.toString();
-        console.log(this.userForm.controls);
         this.userForm.controls["dateOfBirth"].setValue(
           calulatedYear + "/" + this.defaultMonth + "/" + this.defaultDay
         );
@@ -1230,12 +1223,10 @@ export class DemographicComponent
    * @param {*} entityArray
    * @memberof DemographicComponent
    */
-  private populateSelectOptsDataArr(field: string, entityArray: any) {
+  private populateSelectOptsDataArr(field: string, entityArray: any, langCode: string) {
     return new Promise((resolve, reject) => {
       if (entityArray) {
-        //console.log(entityArray);
         entityArray.map((element: any) => {
-          //console.log(element);
           let codeValue: CodeValueModal;
           if (element.genderName) {
             codeValue = {
@@ -1253,13 +1244,12 @@ export class DemographicComponent
             codeValue = {
               valueCode: element.code,
               valueName: element.value,
-              languageCode: element.langCode,
+              languageCode: langCode,
             };
           }
           this.selectOptionsDataArray[field].push(codeValue);
           resolve(true);
         });
-        console.log(this.selectOptionsDataArray);
       }
     });
   }
