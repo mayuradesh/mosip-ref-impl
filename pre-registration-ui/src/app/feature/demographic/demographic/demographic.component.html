@@ -44,18 +44,14 @@
                         <span *ngIf="i == 0">
                           <mat-checkbox class="form_checkBox" [formControlName]="field.id"
                             (change)="showHideFormFields();copyToSecondaryFormNonDropDown(field.id, $event)">
-                            <mat-label class="form_checkBox">
-                              {{field.labelName[dataCaptureLanguage]}}
-                            </mat-label>
+                            <span *ngFor="let lang of dataCaptureLanguages;index as langIndex">
+                              <span *ngIf="langIndex !== 0"> / </span>
+                              <mat-label class="form_checkBox">{{field.labelName[lang]}}</mat-label>
+                            </span>
                           </mat-checkbox>
                         </span>
-                        <span *ngIf="i !== 0">
-                          / <mat-label class="form_checkBox">
-                            {{field.labelName[dataCaptureLanguage]}}
-                          </mat-label>
-                        </span>
                       </ng-container>
-                      <!-- Add Button Options in  only one language -->
+                      <!-- Add Button Options in  only one language on mouse over other lang are shown -->
                       <ng-container *ngIf="field.controlType === 'button' && field.isVisible == true">
                         <span *ngIf="i == 0">
                           <mat-button-toggle-group class="btn_grp" [formControlName]="field.id" (change)="showHideFormFields();
@@ -76,7 +72,7 @@
                           </span>
                         </span>
                       </ng-container>
-                      <!-- Add Dropdown Options in  only one language -->
+                      <!-- Add Dropdown Options in  only one language on mouse over other lang are shown-->
                       <ng-container *ngIf="field.controlType === 'dropdown' && field.isVisible == true">
                         <span *ngIf="i == 0">
                           <mat-form-field [ngClass]="'dropdown-field'">
@@ -152,6 +148,22 @@
                           </div>
                         </span>
                       </ng-container>
+                      <!-- Add Phone and Email in only one lang -->
+                      <ng-container
+                        *ngIf="(field.controlType === 'phone' || field.controlType === 'email') && field.isVisible == true">
+                        <span *ngIf="i == 0">
+                          <mat-form-field [ngClass]="'text-field'">
+                            <!-- Again Label is required at each TextBox level too -->
+                            <mat-label>
+                              {{field.labelName[dataCaptureLanguage]}}
+                            </mat-label>
+                            <input matInput [formControlName]="field.id" (change)="showHideFormFields()"
+                              (focusout)="copyToSecondaryFormNonDropDown(dataCaptureLanguage, $event)"
+                              (input)="copyToSecondaryFormNonDropDown(dataCaptureLanguage, $event)" #keyboardRef
+                              #input />
+                          </mat-form-field>
+                        </span>
+                      </ng-container>
                       <!-- Error handling for various types -->
                       <span *ngIf="field.controlType === 'textbox'">
                         <mat-error class="primary-errors" *ngIf="
@@ -173,7 +185,8 @@
                         </mat-error>
                       </span>
                       <span
-                        *ngIf="field.controlType === 'checkbox' || field.controlType === 'button' || field.controlType === 'dropdown'|| field.controlType === 'date'">
+                        *ngIf="field.controlType === 'checkbox' || field.controlType === 'button' || field.controlType === 'dropdown'
+                        || field.controlType === 'date'|| field.controlType === 'number'|| field.controlType === 'email'">
                         <span *ngIf="i == 0">
                           <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
