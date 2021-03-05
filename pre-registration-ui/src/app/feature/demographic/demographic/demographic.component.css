@@ -157,7 +157,7 @@ mat-icon {
 
 .user__age-or-date {
   display: flex;
-  width: 87.5%;
+  width: 100%;
   align-items: center;
 }
 
