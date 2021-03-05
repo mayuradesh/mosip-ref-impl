@@ -195,7 +195,8 @@ export class DemographicComponent
     private loggerService: LogService // private errorService: ErrorService
   ) {
     super(dialog);
-    this.translate.use(localStorage.getItem("langCode"));
+    //this.translate.use(localStorage.getItem("langCode"));
+    this.translate.use(this.dataCaptureLanguages[0]);
     this.subscriptions.push(
       this.regService
         .getMessage()
@@ -432,7 +433,7 @@ export class DemographicComponent
   async initForm() {
     this.uiFields.forEach((control, index) => {
       this.dataCaptureLanguages.forEach((language, i) => {
-        if (control.controlType !== "dropdown" && control.controlType !== "button" && control.controlType !== "checkbox") {
+        if (control.controlType !== "date" && control.controlType !== "dropdown" && control.controlType !== "button" && control.controlType !== "checkbox") {
           const controlId = control.id + "_" + language;
           this.userForm.addControl(controlId, new FormControl(""));
           this.addValidators(control, controlId);
@@ -442,7 +443,7 @@ export class DemographicComponent
           this.addValidators(control, controlId);
         }
       });
-      
+      console.log(control);
       // if (this.firstDataCaptureLang !== this.secondaryLang) {
       //   this.transUserForm.addControl(control.id, new FormControl(""));
       // }
@@ -1128,6 +1129,7 @@ export class DemographicComponent
         this.date = this.defaultDay;
         this.month = this.defaultMonth;
         this.year = calulatedYear.toString();
+        console.log(this.userForm.controls);
         this.userForm.controls["dateOfBirth"].setValue(
           calulatedYear + "/" + this.defaultMonth + "/" + this.defaultDay
         );

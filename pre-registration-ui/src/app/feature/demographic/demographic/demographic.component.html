@@ -30,7 +30,7 @@
                       <ng-container *ngIf="field.controlType === 'textbox' && field.isVisible == true">
                         <mat-form-field [ngClass]="'text-field'">
                           <!-- Again Label is required at each TextBox level too -->
-                          <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>
+                          <mat-label>
                             {{field.labelName[dataCaptureLanguage]}}
                           </mat-label>
                           <input matInput [formControlName]="field.id + '_' + dataCaptureLanguage"
@@ -44,13 +44,13 @@
                         <span *ngIf="i == 0">
                           <mat-checkbox class="form_checkBox" [formControlName]="field.id"
                             (change)="showHideFormFields();copyToSecondaryFormNonDropDown(field.id, $event)">
-                            <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}' class="form_checkBox">
+                            <mat-label class="form_checkBox">
                               {{field.labelName[dataCaptureLanguage]}}
                             </mat-label>
                           </mat-checkbox>
                         </span>
                         <span *ngIf="i !== 0">
-                          / <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}' class="form_checkBox">
+                          / <mat-label class="form_checkBox">
                             {{field.labelName[dataCaptureLanguage]}}
                           </mat-label>
                         </span>
@@ -80,7 +80,7 @@
                       <ng-container *ngIf="field.controlType === 'dropdown' && field.isVisible == true">
                         <span *ngIf="i == 0">
                           <mat-form-field [ngClass]="'dropdown-field'">
-                            <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>
+                            <mat-label>
                               {{field.labelName[dataCaptureLanguage]}}
                             </mat-label>
                             <mat-select formControlName="{{ field.id }}" (focus)="dropdownApiCall(field)"
@@ -110,12 +110,9 @@
                           </span>
                         </span>
                       </ng-container>
-                      <!-- ADd Date fields-->
+                      <!-- Add Date fields-->
                       <ng-container *ngIf="field.controlType === 'date' && field.isVisible == true">
                         <span *ngIf="i == 0">
-                          <mat-label title='{{ dataCaptureLanguagesLabels[i] | translate }}'>
-                            {{field.labelName[dataCaptureLanguage]}}
-                          </mat-label>
                           <div class="user__age-or-date">
                             <div class="user__date">
                               <mat-form-field>
@@ -145,21 +142,21 @@
                               </div>
                             </div>
                           </div>
-                          <div class="mat-error ng-star-inserted user__dob__error" *ngIf="
-                          primaryuserForm &&    
-                          (userForm.get(field.id).touched &&
+                          <div class="mat-error ng-star-inserted user__dob__error" *ngIf="primaryuserForm &&    
+                              userForm.get(field.id) &&
+                              (userForm.get(field.id).touched &&
                                 userForm.get(field.id).hasError('incorrect')) ||
                               (userForm.get(field.id).touched &&
-                                !userForm.get(field.id).valid)
-                            ">
+                                !userForm.get(field.id).valid)">
                             {{ "demographic.validation.DOB_validation" | translate }}
                           </div>
                         </span>
                       </ng-container>
                       <!-- Error handling for various types -->
-                      <span *ngIf="field.controlType === 'textbox' && field.controlType !== 'date'">
+                      <span *ngIf="field.controlType === 'textbox'">
                         <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage) &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).hasError('required') &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).touched">
                           {{ field.labelName[dataCaptureLanguage] }}
@@ -167,6 +164,7 @@
                         </mat-error>
                         <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
+                          userForm.get(field.id + '_' + dataCaptureLanguage) &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).touched &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).dirty &&
                           userForm.get(field.id + '_' + dataCaptureLanguage).hasError('pattern')">
@@ -179,6 +177,7 @@
                         <span *ngIf="i == 0">
                           <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
+                          userForm.get(field.id) &&
                           userForm.get(field.id).hasError('required') &&
                           userForm.get(field.id).touched">
                             {{ field.labelName[dataCaptureLanguage] }}
@@ -186,6 +185,7 @@
                           </mat-error>
                           <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&
+                          userForm.get(field.id) &&
                           userForm.get(field.id).touched &&
                           userForm.get(field.id).dirty &&
                           userForm.get(field.id).hasError('pattern')">
