@@ -710,7 +710,7 @@
             "ara": "هاتف",
             "fra": "Téléphone"
           },
-          "controlType": "textbox",
+          "controlType": "phone",
           "inputRequired": true,
           "fieldType": "default",
           "type": "string",
@@ -733,7 +733,7 @@
             "fra": "Email"
           },
           "alignmentGroup": "row11",
-          "controlType": "textbox",
+          "controlType": "email",
           "inputRequired": true,
           "fieldType": "default",
           "type": "string",

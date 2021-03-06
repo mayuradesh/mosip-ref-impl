@@ -430,7 +430,7 @@ export class DemographicComponent
   async initForm() {
     this.uiFields.forEach((control, index) => {
       this.dataCaptureLanguages.forEach((language, i) => {
-        if (control.controlType !== "date" && control.controlType !== "dropdown" && control.controlType !== "button" && control.controlType !== "checkbox") {
+        if (this.isControlInMultiLang(control) ) {
           const controlId = control.id + "_" + language;
           this.userForm.addControl(controlId, new FormControl(""));
           this.addValidators(control, controlId);
@@ -452,6 +452,14 @@ export class DemographicComponent
     });
   }
 
+  isControlInMultiLang(control: any) {
+    if (control.controlType !== "date" && control.controlType !== "dropdown" 
+          && control.controlType !== "button" && control.controlType !== "checkbox"
+          && control.controlType !== "email" && control.controlType !== "phone" ) {
+      return false;
+    } 
+    return true;      
+  }
   addValidators = (control: any, controlId) => {
     if (control.required) {
       this.userForm.controls[`${controlId}`].setValidators(
@@ -1440,11 +1448,16 @@ export class DemographicComponent
    * @memberof DemographicComponent
    */
   onSubmit() {
-    this.uiFields.forEach((element) => {
-      this.userForm.controls[`${element.id}`].markAsTouched();
-      // if(this.firstDataCaptureLang !== this.secondaryLang){
-      //   this.transUserForm.controls[`${element.id}`].markAsTouched();
-      // }
+    this.uiFields.forEach((control) => {
+      this.dataCaptureLanguages.forEach((language, i) => {
+        if (this.isControlInMultiLang(control)) {
+          const controlId = control.id + "_" + language;
+          this.userForm.controls[`${controlId}`].markAsTouched();
+        } else if (i == 0) {
+          const controlId = control.id;
+          this.userForm.controls[`${controlId}`].markAsTouched();
+        }
+      });
     });
     if (this.userForm.valid) {
       const identity = this.createIdentityJSONDynamic();
@@ -1561,30 +1574,56 @@ export class DemographicComponent
   private createAttributeArray(element: string, identity) {
     let attr: any;
     if (typeof identity[element] === "object") {
-      let forms = [];
-      let formControlNames = "";
-      const transliterateField = [...appConstants.TRANSLITERATE_FIELDS];
-      if (transliterateField.includes(element)) {
-        forms = ["userForm", "transUserForm"];
-        formControlNames = element;
-      } else {
-        forms = ["userForm", "userForm"];
-        formControlNames = element;
-      }
+      console.log(`element: is object`);
+      //let forms = [];
+      //let formControlNames = "";
+      //const transliterateField = [...appConstants.TRANSLITERATE_FIELDS];
+      // if (transliterateField.includes(element)) {
+      //   forms = ["userForm", "transUserForm"];
+      //   formControlNames = element;
+      // } else {
+      //   forms = ["userForm", "userForm"];
+      //   formControlNames = element;
+      // }
       attr = [];
       for (let index = 0; index < this.languages.length; index++) {
         const languageCode = this.languages[index];
-        const form = forms[index];
-        const controlName = formControlNames;
-        attr.push(
-          new AttributeModel(
-            languageCode,
-            this[form].controls[`${controlName}`].value
-          )
-        );
+        //const form = forms["userForm"];
+        let controlId = element + "_" + languageCode;
+        console.log(`controlId: ${controlId}`);
+        if (this["userForm"].controls[`${controlId}`]) {
+          console.log(`exists`);
+          attr.push(
+            new AttributeModel(
+              languageCode,
+              this["userForm"].controls[`${controlId}`].value
+            )
+          );
+        } else {
+          console.log(`not exists`);
+          controlId = element;
+          if (this["userForm"].controls[`${controlId}`]) {
+            attr.push(
+              new AttributeModel(
+                languageCode,
+                this["userForm"].controls[`${controlId}`].value
+              )
+            );
+          }
+        }
+        
       }
     } else if (typeof identity[element] === "string") {
-        attr = this.userForm.controls[`${element}`].value;
+      if (element === appConstants.IDSchemaVersionLabel) {
+        attr = this.config[appConstants.CONFIG_KEYS.mosip_idschema_version];
+      } else {
+        console.log(`element: is string`);
+        if (this.userForm.controls[`${element}`]) {
+          console.log(`exists`);
+          attr = this.userForm.controls[`${element}`].value;
+        }
+        
+      }
     }
     identity[element] = attr;
   }
@@ -1640,7 +1679,8 @@ export class DemographicComponent
         }
       }
     });
-
+    console.log("before");
+    console.log(identityObj);
     let keyArr: any[] = Object.keys(identityObj);
     for (let index = 0; index < keyArr.length; index++) {
       const element = keyArr[index];
