@@ -11,7 +11,7 @@
           <!-- Create as rows as many as alignmentGroups in UI specs -->
           <span *ngFor="let alignmentGroup of alignmentGroups">
             <div class="rowContainer">
-              <span *ngFor="let field of filterRows(uiFields, alignmentGroup)">
+              <span *ngFor="let field of uiFieldsForAlignmentGroups[alignmentGroup]">
                 <div class="fieldContainer" [ngStyle]="field.containerStyle">
                   <div class="fieldHeader" [ngStyle]="field.headerStyle">
                     <!-- Create container header with labels in all chosen dataCaptureLanguages -->
@@ -66,9 +66,12 @@
                             </ng-container>
                           </mat-button-toggle-group>
                           <br>
-                          <span class="selectedOption"
-                            *ngFor="let labelData of getLabelsInAllLangsForSelectedOpt(field.id,userForm.get(field.id).value)">
-                            {{labelData.label}}<p></p>
+                          <span *ngFor="let option of selectOptionsDataArray[field.id]">
+                            <span
+                              *ngIf="option.valueCode === userForm.get(field.id).value && dataCaptureLanguages.includes(option.languageCode)">
+                              <span class="selectedOption">{{option.valueName}}<p></p></span>
+                            </span>
+
                           </span>
                         </span>
                       </ng-container>
@@ -100,9 +103,12 @@
                             </mat-select>
                           </mat-form-field>
                           <br>
-                          <span class="selectedOption"
-                            *ngFor="let labelData of getLabelsInAllLangsForSelectedOpt(field.id,userForm.get(field.id).value)">
-                            {{labelData.label}}<p></p>
+                          <span *ngFor="let option of selectOptionsDataArray[field.id]">
+                            <span
+                              *ngIf="option.valueCode === userForm.get(field.id).value && dataCaptureLanguages.includes(option.languageCode)">
+                              <span class="selectedOption">{{option.valueName}}<p></p></span>
+                            </span>
+
                           </span>
                         </span>
                       </ng-container>
@@ -184,9 +190,9 @@
                           {{ field.labelName[dataCaptureLanguage] }}
                         </mat-error>
                       </span>
-                      <span
-                        *ngIf="field.controlType === 'checkbox' || field.controlType === 'button' || field.controlType === 'dropdown'
-                        || field.controlType === 'date'|| field.controlType === 'number'|| field.controlType === 'email'">
+                      <span *ngIf="field.controlType === 'date' || field.controlType === 'dropdown' 
+                        || field.controlType === 'button' || field.controlType === 'checkbox'
+                        || field.controlType === 'email' || field.controlType === 'phone'">
                         <span *ngIf="i == 0">
                           <mat-error class="primary-errors" *ngIf="
                           primaryuserForm &&

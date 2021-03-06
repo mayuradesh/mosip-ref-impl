@@ -163,6 +163,7 @@ export class DemographicComponent
   identityData = [];
   uiFields = [];
   alignmentGroups = [];
+  uiFieldsForAlignmentGroups = [];
   jsonRulesEngine = new Engine();
   primaryuserForm = false;
   selectOptionsDataArray = new Map();
@@ -346,7 +347,7 @@ export class DemographicComponent
   async getIdentityJsonFormat() {
     return new Promise((resolve, reject) => {
       this.dataStorageService.getIdentityJson().subscribe((response) => {
-        response = identityStubJson;
+        //response = identityStubJson;
         console.log(response);
         // this.identityData = response["identity"];
         // this.locationHeirarchy = [...response["locationHierarchy"]];
@@ -381,6 +382,11 @@ export class DemographicComponent
           this.setDefaultAlignmentGroups();        
         }
         this.alignmentGroups.sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+        this.alignmentGroups.map(alignmentGroup => {
+          this.uiFieldsForAlignmentGroups[alignmentGroup] = [];
+          let uiFieldsFiltered = this.uiFields.filter(uiField => uiField.alignmentGroup == alignmentGroup);
+          this.uiFieldsForAlignmentGroups[alignmentGroup] = uiFieldsFiltered;
+        });
         this.dynamicFields = this.uiFields.filter(
           (fields) =>
             ((fields.controlType === "dropdown" || fields.controlType === "button" ) && fields.fieldType === "dynamic")
@@ -417,9 +423,10 @@ export class DemographicComponent
   //   return uiFields.filter((item, index) => index >= startingIndex && index < startingIndex + 3);
   // }
 
-  filterRows(uiFields: Array<any>, alignmentGroup) {
-      return uiFields.filter(uiField => uiField.alignmentGroup == alignmentGroup);
-    }
+  // filterRows(uiFields: Array<any>, alignmentGroup) {
+  //   uiFieldsForAlignmentGroups = [];
+  //   uiFields.filter(uiField => uiField.alignmentGroup == alignmentGroup);
+  //   }
   /**
    * @description This will initialize the demographic form and
    * if update set the inital values of the attributes.
@@ -453,12 +460,13 @@ export class DemographicComponent
   }
 
   isControlInMultiLang(control: any) {
+    console.log(`isControlInMultiLang: ${control.controlType}`);
     if (control.controlType !== "date" && control.controlType !== "dropdown" 
           && control.controlType !== "button" && control.controlType !== "checkbox"
           && control.controlType !== "email" && control.controlType !== "phone" ) {
-      return false;
+      return true;
     } 
-    return true;      
+    return false;      
   }
   addValidators = (control: any, controlId) => {
     if (control.required) {
@@ -1614,15 +1622,10 @@ export class DemographicComponent
         
       }
     } else if (typeof identity[element] === "string") {
-      if (element === appConstants.IDSchemaVersionLabel) {
-        attr = this.config[appConstants.CONFIG_KEYS.mosip_idschema_version];
-      } else {
-        console.log(`element: is string`);
-        if (this.userForm.controls[`${element}`]) {
-          console.log(`exists`);
-          attr = this.userForm.controls[`${element}`].value;
-        }
-        
+      console.log(`element: is string`);
+      if (this.userForm.controls[`${element}`]) {
+        console.log(`exists`);
+        attr = this.userForm.controls[`${element}`].value;
       }
     }
     identity[element] = attr;
